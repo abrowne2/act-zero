@@ -46,6 +46,12 @@ async fn mutex_task<T>(
             }
         };
 
+        tracing::error!(
+            "Actor type: {}, MutItem type: {}",
+            std::any::type_name::<T>(),
+            std::any::type_name::<MutItem<T>>()
+        );
+
         // Wait for the current item to run
         let mut current_future = current_item(&mut value).fuse();
         loop {
